@@ -1,5 +1,6 @@
 'use client';
 
+import getLocalDateTime from '@/utils/getLocalTime';
 import { useRef, useState } from 'react';
 
 export default function () {
@@ -7,13 +8,19 @@ export default function () {
   console.log('offset ', offset);
   const [value, setValue] = useState(null);
   const [result, setResult] = useState(null);
+  const [result2, setResult2] = useState(null);
   const ref = useRef();
 
-  function handleMethod1(date) {
+  function handleClientSide(date) {
     const newDate = new Date(date);
-    console.log('newDate ', newDate);
-    const newDateState = newDate.toLocaleString();
+    const newDateState = newDate.toLocaleString().toUpperCase();
+    console.log('newDate ', newDateState);
     setResult(newDateState);
+  }
+
+  function handleServerSide(date) {
+    const newDate = getLocalDateTime(date);
+    setResult2(newDate);
   }
 
   return (
@@ -23,6 +30,7 @@ export default function () {
         'flex-direction': 'column',
         margin: '20px',
         gap: '10px',
+        width: '400px',
       }}
     >
       UseClint:
@@ -33,18 +41,13 @@ export default function () {
         onChange={(e) => setValue(ref.current.value)}
       />
       <div style={{ display: 'flex', gap: '10px' }}>
-        <button onClick={() => handleMethod1(value)}>Method1</button>
-        {/* <button onClick={() => handleMethod2(value)}>Method2</button>
-        <button onClick={() => handleMethod1(value)}>Method1</button>
-        <button onClick={() => handleMethod1(value)}>Method1</button>
-        <button onClick={() => handleMethod1(value)}>Method1</button>
-        <button onClick={() => handleMethod1(value)}>Method1</button>
-        <button onClick={() => handleMethod1(value)}>Method1</button> */}
+        <button onClick={() => handleClientSide(value)}>Client Side</button>
+        <button onClick={() => handleServerSide(value)}>Server Side</button>
       </div>
       <div style={{ color: 'red', backgroundColor: 'white', padding: '10px' }}>
-        <p>Method1: {offset}</p>
-        {/* <p>Method2: {newDate}</p> */}
-        <p>Method3: {result}</p>
+        <p>Offset: {offset}</p>
+        <p>Client Side: {result}</p>
+        <p>Server Side: {result2}</p>
       </div>
     </div>
   );
