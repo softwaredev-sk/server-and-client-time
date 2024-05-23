@@ -1,7 +1,7 @@
 'use client';
 
 import getLocalDateTime from '@/utils/getLocalTime';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 
 export default function () {
   const offset = new Date().getTimezoneOffset();
@@ -51,6 +51,7 @@ export default function () {
         ref={ref}
         value={value}
         onChange={() => setValue(ref.current.value)}
+        placeholder="Enter UTC Time String"
         style={{
           padding: '10px 5px',
         }}
