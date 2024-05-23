@@ -1,11 +1,26 @@
 import getLocalDateTime from '@/utils/getLocalTime';
 
-export default function () {
+async function getDateTime() {
+  const res = await fetch(`${process.env.PROD_URL}/api/servertime`, {
+    cache: 'no-store',
+  });
+
+  if (!res.ok) {
+    return;
+  }
+
+  return res.json();
+}
+
+export default async function () {
   const offset = new Date().getTimezoneOffset();
   console.log('offset ', offset);
   const date = new Date();
   const newDate = getLocalDateTime(date);
   console.log('newDate ', newDate);
+
+  const dateAPI = await getDateTime();
+  const serverDate = getLocalDateTime(dateAPI);
 
   return (
     <div
@@ -31,6 +46,19 @@ export default function () {
         <p>
           <b>Offset:</b> {offset}
         </p>
+
+        <strong>
+          <em>Current Server Time (Refresh for up to date time):</em>
+        </strong>
+        <p>
+          <b>Server Side:</b> {serverDate}
+        </p>
+        <p>
+          <b>UTC Time ISO String</b>: {dateAPI.toString()}
+        </p>
+        <strong>
+          <em>Last Server Side Rendered:</em>
+        </strong>
         <p>
           <b>Server Side:</b> {newDate}
         </p>

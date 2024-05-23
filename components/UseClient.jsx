@@ -73,8 +73,8 @@ export default function () {
           onClick={() => handleServerSide(value)}
           style={{
             padding: '5px 20px',
-            backgroundColor: 'white',
-            color: 'black',
+            backgroundColor: 'gray',
+            color: 'white',
             borderRadius: '5px',
             border: '1px solid black',
           }}
@@ -99,7 +99,10 @@ export default function () {
           <b>Client Side:</b> {result}
         </p>
         <p>
-          <b>Time from server side code:</b> {result2}
+          <b>Time from server side code:</b>{' '}
+          <span style={{ color: 'white', backgroundColor: 'gray' }}>
+            {result2}
+          </span>
         </p>
         <p>
           <b>UTC Time String</b>: {UTCDate?.toString()}
