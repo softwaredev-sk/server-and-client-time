@@ -1,17 +1,24 @@
 'use client';
 
 import getLocalDateTime from '@/utils/getLocalTime';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export default function () {
   const offset = new Date().getTimezoneOffset();
   console.log('offset ', offset);
+
   const [value, setValue] = useState(null);
   const [ISODateValue, setISODateValue] = useState(null);
   const [UTCDate, setUTCDate] = useState();
   const [result, setResult] = useState(null);
   const [result2, setResult2] = useState(null);
+  const [clientDateTime, setClientDateTime] = useState();
   const ref = useRef();
+
+  useEffect(() => {
+    const clientDate = new Date();
+    setClientDateTime(clientDate);
+  }, []);
 
   function handleClientSide(date) {
     const newDate = new Date(date);
@@ -42,7 +49,7 @@ export default function () {
         'flex-direction': 'column',
         margin: '20px',
         gap: '10px',
-        width: '400px',
+        maxWidth: '500px',
       }}
     >
       Client Side:
@@ -51,12 +58,20 @@ export default function () {
         ref={ref}
         value={value}
         onChange={() => setValue(ref.current.value)}
-        placeholder="Enter UTC Time String"
+        placeholder="Enter UTC Time String to convert to Local time String"
         style={{
           padding: '10px 5px',
         }}
       />
-      <div style={{ display: 'flex', gap: '10px', justifyContent: 'flex-end' }}>
+      <div
+        style={{
+          display: 'flex',
+          gap: '10px',
+          justifyContent: 'flex-end',
+          alignItems: 'center',
+        }}
+      >
+        <span style={{ textAlign: 'right' }}>Convert from </span>
         <button
           onClick={() => handleClientSide(value)}
           style={{
@@ -67,7 +82,7 @@ export default function () {
             border: '1px solid black',
           }}
         >
-          Get from Client Side Code
+          Client Side
         </button>
         <button
           onClick={() => handleServerSide(value)}
@@ -93,13 +108,27 @@ export default function () {
         }}
       >
         <p>
-          <b>Offset:</b> {offset}
+          <span>
+            <b>Offset:</b> {offset}{' '}
+            <span>{offset <= 1 && offset >= -1 ? ' minute' : ' minutes'}</span>
+          </span>
+        </p>
+        <p>
+          <span>
+            <b>You are:</b>{' '}
+            {offset !== 0 &&
+              ` (${Math.floor(Math.abs(offset) / 60)} hours ${
+                Math.abs(offset) % 60
+              } minute${Math.floor(Math.abs(offset) / 60) > 1 ? 's' : ''} ${
+                offset < 0 ? 'Ahead' : 'Behind'
+              })`}
+          </span>
         </p>
         <p>
           <b>Client Side:</b> {result}
         </p>
         <p>
-          <b>Time from server side code:</b>{' '}
+          <b>Time from server side code:</b>
           <span style={{ color: 'white', backgroundColor: 'gray' }}>
             {result2}
           </span>
@@ -109,6 +138,9 @@ export default function () {
         </p>
         <p>
           <b>UTC Time ISO String:</b> {ISODateValue?.toISOString()}
+        </p>
+        <p>
+          <b>Current Client Date Time:</b> {clientDateTime?.toISOString()}
         </p>
       </div>
     </div>

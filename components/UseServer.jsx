@@ -29,7 +29,7 @@ export default async function () {
         'flex-direction': 'column',
         margin: '20px',
         gap: '10px',
-        width: '400px',
+        maxWidth: '500px',
       }}
     >
       Server Side:
@@ -45,8 +45,14 @@ export default async function () {
       >
         <p>
           <b>Offset:</b> {offset}
+          <span>{offset <= 1 && offset >= -1 ? ' minute' : ' minutes'}</span>
+          {offset !== 0 &&
+            ` (${Math.floor(Math.abs(offset) / 60)} hours ${
+              Math.abs(offset) % 60
+            } minute${Math.floor(Math.abs(offset) / 60) > 1 ? 's' : ''} ${
+              offset > 0 ? 'Ahead' : 'Behind'
+            })`}
         </p>
-
         <strong>
           <em>Last Server Side Rendered:</em>
         </strong>
