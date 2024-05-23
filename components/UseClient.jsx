@@ -17,8 +17,9 @@ export default function () {
 
   useEffect(() => {
     const clientDate = new Date();
-    const clientLocalDate = clientDate.toLocaleString();
-    setClientDateTime(clientLocalDate);
+    // const clientLocalDate = clientDate.toLocaleString();
+    // setClientDateTime(clientLocalDate);
+    setClientDateTime(clientDate);
   }, []);
 
   function handleClientSide(date) {
@@ -139,6 +140,9 @@ export default function () {
         </p>
         <p>
           <b>UTC Time ISO String:</b> {ISODateValue?.toISOString()}
+        </p>
+        <p>
+          <b>Current Client Date Time:</b> {clientDateTime?.toString()}
         </p>
         <p>
           <b>Current Client Date Time:</b> {clientDateTime?.toISOString()}
