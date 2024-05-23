@@ -17,7 +17,8 @@ export default function () {
 
   useEffect(() => {
     const clientDate = new Date();
-    setClientDateTime(clientDate);
+    const clientLocalDate = clientDate.toLocaleString();
+    setClientDateTime(clientLocalDate);
   }, []);
 
   function handleClientSide(date) {
