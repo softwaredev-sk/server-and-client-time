@@ -48,7 +48,7 @@ export default async function () {
         </p>
 
         <strong>
-          <em>Current Server Time (Refresh for up to date time):</em>
+          <em>Last Server Side Rendered:</em>
         </strong>
         <p>
           <b>Server Side:</b> {serverDate}
@@ -57,7 +57,7 @@ export default async function () {
           <b>UTC Time ISO String</b>: {dateAPI.toString()}
         </p>
         <strong>
-          <em>Last Server Side Rendered:</em>
+          <em>Current Server Time (Refresh for up to date time):</em>
         </strong>
         <p>
           <b>Server Side:</b> {newDate}
