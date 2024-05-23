@@ -1,4 +1,5 @@
 export default function getLocalDateTime(date) {
-  const newDate = new Date(date);
+  const receivedDate = date || new Date();
+  const newDate = new Date(receivedDate);
   return newDate.toLocaleString().toUpperCase();
 }

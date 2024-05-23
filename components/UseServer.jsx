@@ -60,7 +60,7 @@ export default async function () {
           <b>Server Side:</b> {serverDate}
         </p>
         <p>
-          <b>UTC Time ISO String</b>: {dateAPI.toString()}
+          <b>Time ISO String</b>: {dateAPI.toString()}
         </p>
         <strong>
           <em>Current Server Time (Refresh for up to date time):</em>
@@ -69,10 +69,10 @@ export default async function () {
           <b>Server Side:</b> {newDate}
         </p>
         <p>
-          <b>UTC Time String</b>: {date.toString()}
+          <b>Time String</b>: {date.toString()}
         </p>
         <p>
-          <b>UTC Time ISO String:</b> {date.toISOString()}
+          <b>Time ISO String:</b> {date.toISOString()}
         </p>
       </div>
     </div>
